@@ -1,4 +1,4 @@
-This repository represents the official implementation of the paper N$^3$-Mapping:
+This repository represents the official implementation of the paper [N3-Mapping](https://arxiv.org/abs/2401.03412):
 ```
 @article{song2024,
   title={N $\^{}$\{$3$\}$ $-Mapping: Normal Guided Neural Non-Projective Signed Distance Fields for Large-scale 3D Mapping},
@@ -9,7 +9,7 @@ This repository represents the official implementation of the paper N$^3$-Mappin
 ```
 
 ## Installation
-#### 1. Clone SHINE Mapping repository
+#### 1. Clone the repository
 ```
 git@github.com:tiev-tongji/N3-Mapping.git
 cd N3-Mapping
