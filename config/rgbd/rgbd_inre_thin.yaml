@@ -1,0 +1,77 @@
+# thin_geometry_kitti_format
+# thin_geometry_kitti_gt
+
+setting:
+  name: "rgbd_incre"
+  output_root: "./experiments/"
+  pc_path: "/media/shy/Document/dataset/neural_rgbd/thin_geometry_kitti_gt/rgbd_ply"
+  pose_path: "/media/shy/Document/dataset/neural_rgbd/thin_geometry_kitti_gt/poses.txt"
+  label_path: ""
+  calib_path: ""
+  load_model: False # load the pretrained decoder model (optional)
+  model_path: "./pretrained/geo_decoder_8dim.pth" 
+  first_frame_ref: False
+  begin_frame: 0
+  end_frame: 2000 #1500
+  every_frame: 2 # 1 means does not skip
+  device: "cuda"
+  gpu_id: "0"
+process:
+  min_range_m: 0.1
+  pc_radius_m: 8.0  # distance filter for each frame
+  min_z: -8.0
+  max_z: 8.0
+  rand_downsample: False # use random or voxel downsampling
+  vox_down_m: 0.01
+  rand_down_r: 0.5
+sampler:
+  surface_sample_range_m: 0.02
+  surface_sample_n: 3
+  free_sample_begin_ratio: 0.5
+  free_sample_end_dist: 0.03
+  free_sample_n: 3
+  normal_sampling_on: True 
+  gaussian_sampling_on: False
+  sliding_window_on: False
+octree:
+  leaf_vox_size: 0.02
+  tree_level_world: 12
+  tree_level_feat: 4
+  feature_dim: 8
+  poly_int_on: False
+  octree_from_surface_samples: True
+decoder:
+  mlp_level: 2
+  mlp_hidden_dim: 32
+  freeze_after_frame: 20
+  predict_residual_sdf: False
+loss:
+  ray_loss: False
+  main_loss_type: sdf_bce  # select from sdf_bce (our proposed), sdf_l1, sdf_l2, dr, dr_neus
+  sigma_sigmoid_m: 0.01
+  loss_weight_on: False
+  behind_dropoff_on: False
+  ekional_loss_on: False
+  weight_e: 0.08
+  normal_loss_on: False
+  weight_n: 0.1
+continual:
+  continual_learning_reg: False
+  lambda_forget: 0
+optimizer:
+  iters: 30
+  batch_size: 8192
+  learning_rate: 0.01
+  weight_decay: 0
+  extra_training: False
+eval:
+  wandb_vis_on: False # log to wandb or not
+  o3d_vis_on: False # visualize the mapping or not
+  vis_freq_iters: 0 
+  save_freq_iters: 0 # save the model and octree every x iterations
+  mesh_freq_frame: 5000 # reconstruct the mesh every x frames
+  mc_res_m: 0.02 # 0.04 reconstruction marching cubes resolution
+  mc_with_octree: False # querying sdf in the map bbx
+  mc_vis_level: 2
+  clean_mesh_on: True
+  save_map: False # save the sdf map or not

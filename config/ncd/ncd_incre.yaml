@@ -1,0 +1,74 @@
+setting:
+  name: "ncd_incre"
+  output_root: "./experiments/"
+  pc_path: "/media/shy/Document/dataset/ncd_example/quad/pcd"
+  pose_path: "/media/shy/Document/dataset/ncd_example/quad/poses.txt"
+  calib_path: "/media/shy/Document/dataset/ncd_example/quad/calib.txt"
+  label_path: ""
+  load_model: False
+  model_path: "" 
+  first_frame_ref: False
+  begin_frame: 0 
+  end_frame: 1300
+  every_frame: 5 # 1 means does not skip
+  device: "cuda"
+  gpu_id: "0"
+process:
+  min_range_m: 1.5
+  pc_radius_m: 50.0  # distance filter for each frame
+  min_z: -3.0
+  max_z: 30.0
+  rand_downsample: False # use random or voxel downsampling
+  vox_down_m: 0.03 # may cause map offset
+  rand_down_r: 0.2
+sampler:
+  surface_sample_range_m: 0.3
+  surface_sample_n: 3
+  free_sample_begin_ratio: 0.3
+  free_sample_end_dist: 0.8 #
+  free_sample_n: 6 # more free space sampling can suppress dynamic objects
+  normal_sampling_on: True 
+  gaussian_sampling_on: False
+  sliding_window_on: False # not necessary in ncd
+octree:
+  leaf_vox_size: 0.4 # 0.2
+  tree_level_world: 12
+  tree_level_feat: 3
+  feature_dim: 8
+  poly_int_on: False
+  octree_from_surface_samples: True
+decoder:
+  mlp_level: 2
+  mlp_hidden_dim: 32
+  freeze_after_frame: 30
+  predict_residual_sdf: False
+loss:
+  ray_loss: False
+  main_loss_type: sdf_bce  # select from sdf_bce (our proposed), sdf_l1, sdf_l2, dr, dr_neus
+  sigma_sigmoid_m: 0.1
+  loss_weight_on: False
+  behind_dropoff_on: False
+  ekional_loss_on: False
+  weight_e: 0.08
+  normal_loss_on: False
+  weight_n: 0.1
+continual:
+  continual_learning_reg: False
+  lambda_forget: 0 # the larger this value, the model would be less likely to forget
+optimizer:
+  iters: 50  # iterations per frame
+  batch_size: 8192
+  learning_rate: 0.01
+  weight_decay: 1e-7 # l2 regularization
+  extra_training: False
+eval:
+  wandb_vis_on: False # log to wandb or not
+  o3d_vis_on: False # visualize the mapping or not
+  vis_freq_iters: 0
+  save_freq_iters: 0 # save the model and octree every x iterations
+  mesh_freq_frame: 1300 # reconstruct the mesh every x frames
+  mc_res_m: 0.2 # reconstruction marching cubes resolution
+  mc_with_octree: True # querying sdf only in certain levels of the octree
+  mc_vis_level: 2
+  clean_mesh_on: True
+  save_map: False # save the sdf map or not 
