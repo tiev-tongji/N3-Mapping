@@ -1,6 +1,6 @@
 import sys
 import os
-#os.environ['CUDA_VISIBLE_DEVICES'] = "0" #before import torch
+#os.environ['CUDA_VISIBLE_DEVICES'] = "0" #set here before import torch
 
 from utils.config import SHINEConfig
 from utils.mapper import Mapper
