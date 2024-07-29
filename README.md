@@ -1,17 +1,18 @@
-This repository represents the official implementation of the paper [N3-Mapping](https://arxiv.org/abs/2401.03412):
+This repository represents the official implementation of the paper [N3-Mapping](https://ieeexplore.ieee.org/abstract/document/10518078/):
 ```
-@article{song2024,
+@article{song2024n3,
   title={N $\^{}$\{$3$\}$ $-Mapping: Normal Guided Neural Non-Projective Signed Distance Fields for Large-scale 3D Mapping},
   author={Song, Shuangfu and Zhao, Junqiao and Huang, Kai and Lin, Jiaye and Ye, Chen and Feng, Tiantian},
-  journal={arXiv preprint arXiv:2401.03412},
-  year={2024}
+  journal={IEEE Robotics and Automation Letters},
+  year={2024},
+  publisher={IEEE}
 }
 ```
 
 ## Installation
 #### 1. Clone the repository
 ```
-git@github.com:tiev-tongji/N3-Mapping.git
+git clone git@github.com:tiev-tongji/N3-Mapping.git
 cd N3-Mapping
 ```
 #### 2. Set up conda environment
